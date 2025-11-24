@@ -1,119 +1,564 @@
 <!DOCTYPE html>
 <html lang="ms">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Neo X FC Membership</title>
-  <link rel="stylesheet" href="neoxmembership-style.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Ahli Neo X FC</title>
+    <!-- Font dan Ikon (Material Symbols) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:400,500|Jost:400,500,600&display=swap" rel="stylesheet">
+
+    <style>
+        /* CSS DARI ProfilePage.html ANDA */
+        /* Pastikan elemen visual seperti gambar latar belakang berfungsi di GitHub */
+        @import url("https://fonts.googleapis.com/css?family=DM+Sans:400,500|Jost:400,500,600&display=swap");
+
+        html {
+            font-size: 100%;
+        }
+        * {
+            box-sizing: border-box;
+        }
+
+        /* BODY */
+        body {
+            color: #2b2c48;
+            font-family: "Jost", sans-serif;
+            /* Pastikan URL Imej Bekerja: Menggunakan imej awam dari Unsplash */
+            background-image: url(https://images.unsplash.com/photo-1763965972567-dbc2a4004635?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+            font-size: 16px;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+
+        /* KONTENA UTAMA */
+        .member {
+            width: 100%;
+            max-width: 450px; /* Saiz yang lebih sesuai untuk mobile card */
+            margin: auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .neoheader {
+            width: 100%;
+            text-align: center;
+            margin: 0 0 40px 0;
+        }
+
+        .neologo {
+            width: 64px;
+            text-align: center;
+            margin: auto;
+        }
+
+        /* KAD */
+        .card {
+            display: block;
+            width: 100%;
+            max-width: 450px; /* Pastikan ia mobile responsive */
+            margin: auto;
+            background-color: rgba(255, 255, 255, 1);
+            border-radius: 20px;
+            position: relative;
+            min-height: 400px;
+        }
+
+        .card-header {
+            text-align: center;
+            background: #ffc200;
+            border-radius: 20px 20px 0 0;
+            padding: 24px;
+            color: #032a49;
+        }
+        
+        /* Placeholder untuk avatar yang tidak dapat dimuat */
+        .card-avatar {
+            width: 140px;
+            height: 140px;
+            box-shadow: 0 8px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 50%;
+            object-position: center;
+            object-fit: cover;
+            margin: auto; /* Memastikan imej avatar berada di tengah */
+        }
+
+        .member-name {
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 32px;
+            margin-top: 10px;
+            color: #032a49;
+            min-height: 32px; /* Untuk mengelakkan CLS semasa loading */
+        }
+
+        .member-id {
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 14px;
+            margin-top: 5px;
+            color: #032a49;
+        }
+
+        .member-status {
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 12px;
+            margin-top: 10px;
+        }
+
+        /* SECTION KANDUNGAN */
+        .card-section {
+            padding: 24px;
+            min-height: 200px; 
+            display: none; /* Default: Sembunyi semua section */
+        }
+
+        .card-section.is-active {
+            display: block;
+            animation: fadeIn 0.6s both;
+        }
+
+        .card-subtitle {
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #032a49;
+        }
+
+        /* CONTACT SECTION */
+        .card-contact {
+            display: flex;
+            align-items: center;
+            color: #6f6f7b;
+            line-height: 1.6;
+            cursor: pointer;
+            margin: 20px 0;
+            word-break: break-word; /* Untuk memecahkan alamat/email panjang */
+        }
+
+        .card-contact + .card-contact {
+            margin-top: 16px;
+        }
+
+        .material-symbols-outlined {
+            flex-shrink: 0;
+            width: 30px;
+            margin-right: 16px;
+            transition: 0.3s;
+            padding-right: 10px;
+            border-right: 1px solid #dfe2ec;
+            color: #6f6f7b;
+        }
+
+        /* BUTTONS */
+        .card-buttons {
+            display: flex;
+            background-color: #fff;
+            margin-top: auto;
+            position: sticky;
+            bottom: 0;
+            left: 0;
+            border-radius: 20px;
+            border-top: 1px solid #dfe2ec;
+        }
+
+        .card-buttons button {
+            flex: 1 1 auto;
+            user-select: none;
+            background: 0;
+            font-size: 13px;
+            border: 0;
+            padding: 15px 5px;
+            cursor: pointer;
+            color: #5c5c6d;
+            transition: 0.3s;
+            font-family: "Jost", sans-serif;
+            font-weight: 500;
+            outline: 0;
+            border-bottom: 3px solid transparent;
+        }
+
+        .card-buttons button.is-active,
+        .card-buttons button:hover {
+            color: #2b2c48;
+            border-bottom: 3px solid #032a49;
+            background: linear-gradient(
+                to bottom,
+                rgba(3, 42, 73, 0) 0%,
+                rgba(3, 42, 73, 0.1) 44%,
+                rgba(3, 42, 73, 0.2) 100%
+            );
+        }
+
+        /* PROMO SECTION */
+        .promo-section {
+            width: 100%;
+            max-width: 450px;
+            margin: 40px auto 0;
+            padding: 24px 0;
+            background-color: rgba(0, 0, 0, 0.4);
+            border-radius: 20px;
+            padding: 20px;
+        }
+
+        .promo-section img {
+            width: 100%;
+            border-radius: 8px;
+            display: block;
+        }
+
+        .promo-title {
+            color: #fff;
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* SOCIAL MEDIA */
+        .social-links {
+            width: 100%;
+            margin: 30px 0 60px 0;
+            text-align: center;
+            color: white;
+            fill: white;
+        }
+
+        .social-links svg {
+            fill: #fff;
+            width: 32px;
+            margin: 0 4px;
+            transition: fill 0.3s;
+        }
+
+        /* ERROR/LOADING STATE STYLING */
+        .error-state {
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+        
+        .loading-state {
+            opacity: 0.7;
+            filter: blur(1px);
+        }
+
+        /* ANIMASI */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
-  
-<body>
-  <div class="member">
-    <div class="neoheader">
-      <img class="neologo" src="https://i.ibb.co/TDzW5nYH/Logo-Neo-X.png" alt="">
-    </div>
-    <div class="card" data-state="#about">
-      
-      <div class="card-header">
-        <img class="card-avatar" src="https://images.unsplash.com/photo-1549068106-b024baf5062d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80">
-        <h1 class="member-name">Muhammad Radzley Bin Gemari</h1>
-        <h2 class="member-id">NEOX-00004</h2>
-        <h3 class="member-status">Active (exp: 30/12/2026)</h3>
-      </div>
-      
-      <div class="card-main">
-        
-        <div class="card-section is-active" id="about">
-          <div class="card-content">
-            <div class="card-subtitle">DETAILS</div>
-            <div class="card-contact-wrapper">
-              <div class="card-contact">
-                <span class="material-symbols-outlined">id_card</span>871110236035
-              </div>
-              <div class="card-contact">
-                <span class="material-symbols-outlined">calendar_today</span>10 November 1987
-              </div>
-              <div class="card-contact">
-                <span class="material-symbols-outlined">cake</span>38 years old
-              </div>
-              <div class="card-contact">
-                <span class="material-symbols-outlined">man</span>Male
-              </div>
+<body class="overflow-x-hidden">
+
+    <div class="member">
+        <div class="neoheader">
+            <!-- Guna URL Logo yang disediakan -->
+            <img class="neologo" src="https://i.ibb.co/TDzW5nYH/Logo-Neo-X.png" alt="Neo X FC Logo">
+        </div>
+
+        <!-- Struktur Kad Utama. Data-state digunakan oleh JS tab -->
+        <div class="card loading-state" data-state="#about" id="member-card">
+            
+            <div class="card-header">
+                <!-- Avatar Placeholder: Akan dikemas kini jika ada URL Avatar dalam data -->
+                <img id="card-avatar" class="card-avatar" src="https://placehold.co/140x140/94a3b8/ffffff?text=AVATAR" onerror="this.src='https://placehold.co/140x140/94a3b8/ffffff?text=AVATAR';" alt="Member Avatar">
+                
+                <!-- Placeholder Data -->
+                <h1 class="member-name" id="member-name">Memuatkan Data...</h1>
+                <h2 class="member-id" id="member-id">NEOX-xxxxxx</h2>
+                <h3 class="member-status" id="member-status">Status: ...</h3>
             </div>
-          </div>
-        </div>
-        
-        <div class="card-section" id="contact">
-          <div class="card-content">
-            <div class="card-subtitle">CONTACT</div>
-            <div class="card-contact-wrapper">
-              <div class="card-contact">
-                <span class="material-symbols-outlined">location_on</span>Address
-              </div>
-              <div class="card-contact">
-                <span class="material-symbols-outlined">call</span>0178711267
-              </div>
-              <div class="card-contact">
-                <span class="material-symbols-outlined">mail</span>leeyhoudini@gmail.com
-              </div>
+
+            <div class="card-main">
+                <!-- SECTION 1: DETAILS -->
+                <div class="card-section is-active" id="about">
+                    <div class="card-content">
+                        <div class="card-subtitle">DETAILS</div>
+                        <div class="card-contact-wrapper">
+                            <div class="card-contact">
+                                <span class="material-symbols-outlined">badge</span>
+                                <span id="ic-passport">...</span>
+                            </div>
+                            <div class="card-contact">
+                                <span class="material-symbols-outlined">calendar_today</span>
+                                <span id="tarikh-lahir">...</span>
+                            </div>
+                            <div class="card-contact">
+                                <span class="material-symbols-outlined">cake</span>
+                                <span id="umur">...</span>
+                            </div>
+                            <div class="card-contact">
+                                <span class="material-symbols-outlined">person</span>
+                                <span id="gender">...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION 2: CONTACT -->
+                <div class="card-section" id="contact">
+                    <div class="card-content">
+                        <div class="card-subtitle">CONTACT</div>
+                        <div class="card-contact-wrapper">
+                            <div class="card-contact">
+                                <span class="material-symbols-outlined">location_on</span>
+                                <span id="address">...</span>
+                            </div>
+                            <div class="card-contact">
+                                <span class="material-symbols-outlined">call</span>
+                                <span id="telefon">...</span>
+                            </div>
+                            <div class="card-contact">
+                                <span class="material-symbols-outlined">mail</span>
+                                <span id="email">...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BUTTONS (Kekal dengan logik tukar tab anda) -->
+                <div class="card-buttons">
+                    <button data-section="#about" class="is-active">DETAILS</button>
+                    <button data-section="#contact">CONTACT</button>
+                </div>
             </div>
-          </div>
         </div>
         
-        <div class="card-buttons">
-          <button data-section="#about" class="is-active">DETAILS</button>
-          <button data-section="#contact">CONTACT</button>
+        <!-- SECTION PROMOSI (Dibina secara dinamik oleh JS) -->
+        <div class="promo-section" id="promo-section">
+            <h3 class="promo-title">EXCLUSIVE PROMO FOR YOU</h3>
+            <div id="promotions-container">
+                <!-- Promo akan dimasukkan di sini oleh JavaScript -->
+                <p class="text-center text-white/50">Memuatkan Promosi...</p>
+            </div>
         </div>
+
+        <!-- SOCIAL MEDIA LINKS (Kekal statik) -->
+        <div class="social-links">
+            <p>NEO X FOOTBALL CLUB</p>
+            <a href="https://www.instagram.com/neox.footballclub/" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c6.6274 0 12 5.3726 12 12s-5.3726 12-12 12S0 18.6274 0 12 5.3726 0 12 0zm3.115 4.5h-6.23c-2.5536 0-4.281 1.6524-4.3805 4.1552L4.5 8.8851v6.1996c0 1.3004.4234 2.4193 1.2702 3.2359.7582.73 1.751 1.1212 2.8818 1.1734l.2633.006h6.1694c1.3004 0 2.389-.4234 3.1754-1.1794.762-.734 1.1817-1.7576 1.2343-2.948l.0056-.2577V8.8851c0-1.2702-.4234-2.3589-1.2097-3.1452-.7338-.762-1.7575-1.1817-2.9234-1.2343l-.252-.0056zM8.9152 5.8911h6.2299c.9072 0 1.6633.2722 2.2076.8166.4713.499.7647 1.1758.8103 1.9607l.0063.2167v6.2298c0 .9375-.3327 1.6936-.877 2.2077-.499.4713-1.176.7392-1.984.7806l-.2237.0057H8.9153c-.9072 0-1.6633-.2722-2.2076-.7863-.499-.499-.7693-1.1759-.8109-2.0073l-.0057-.2306V8.885c0-.9073.2722-1.6633.8166-2.2077.4712-.4713 1.1712-.7392 1.9834-.7806l.2242-.0057h6.2299-6.2299zM12 8.0988c-2.117 0-3.871 1.7238-3.871 3.871A3.8591 3.8591 0 0 0 12 15.8408c2.1472 0 3.871-1.7541 3.871-3.871 0-2.117-1.754-3.871-3.871-3.871zm0 1.3911c1.3609 0 2.4798 1.119 2.4798 2.4799 0 1.3608-1.119 2.4798-2.4798 2.4798-1.3609 0-2.4798-1.119-2.4798-2.4798 0-1.361 1.119-2.4799 2.4798-2.4799zm4.0222-2.3589a.877.877 0 1 0 0 1.754.877.877 0 0 0 0-1.754z"/></svg></a>
+            <a href="https://www.facebook.com/neoxfc" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" ><path d="M12 0c6.627 0 12 5.373 12 12s-5.373 12-12 12S0 18.627 0 12 5.373 0 12 0zm4 7.278V4.5h-2.286c-2.1 0-3.428 1.6-3.428 3.889v1.667H8v2.777h2.286V19.5h2.857v-6.667h2.286L16 10.056h-2.857V8.944c0-1.11.572-1.666 1.714-1.666H16z"/></svg></a>
+            <a href="https://www.tiktok.com/@neoxfootballclub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c6.6274 0 12 5.3726 12 12s-5.3726 12-12 12S0 18.6274 0 12 5.3726 0 12 0Zm3.1623 4h-2.7508v10.9209a2.3324 2.3324 0 0 1-3.0455 2.2209 2.3324 2.3324 0 0 1 1.4129-4.4459V9.8862a5.0812 5.0812 0 0 0-5.7481 5.5912 5.0805 5.0805 0 0 0 3.802 4.3668 5.0818 5.0818 0 0 0 5.423-2.0286c.5899-.8501.9062-1.86.9065-2.8947V9.3345A6.5666 6.5666 0 0 0 19 10.5614V7.83a3.796 3.796 0 0 1-2.0944-.6295 3.8188 3.8188 0 0 1-1.6852-2.5075 3.7856 3.7856 0 0 1-.058-.693Z" /></svg></a>
+            <a href="https://www.youtube.com/@Neoxfc" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c6.627 0 12 5.373 12 12s-5.373 12-12 12S0 18.627 0 12 5.373 0 12 0zm.294 7h-.589l-1.101.013c-1.48.024-3.709.092-4.465.285a1.836 1.836 0 0 0-1.326 1.263c-.181.644-.258 1.69-.29 2.46l-.022.815v.328l.008.426c.022.764.09 2.088.304 2.849.172.614.68 1.098 1.326 1.263.736.188 2.867.257 4.346.283L11.89 17l1.159-.008c1.453-.019 3.993-.082 4.811-.29a1.836 1.836 0 0 0 1.327-1.263c.21-.75.28-2.048.302-2.817l.01-.528-.003-.403c-.012-.67-.066-2.265-.31-3.13a1.836 1.836 0 0 0-1.326-1.263c-.661-.169-2.45-.242-3.878-.274L12.294 7zm-1.828 2.89l3.92 2.11-3.92 2.11V9.89z"/></svg></a>
+        </div>
+    </div>
+
+
+    <script>
+        // ====================================================================
+        // ⚠️ MANDATORI: GANTIKAN DENGAN URL WEB APP GAS ANDA SEBENAR
+        // ====================================================================
+        const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbwz_EXAMPLE_GANTIKAN_INI_qA9b/exec';
+        // ====================================================================
         
-      </div>
-    </div>
-    
-    <div class="promo-section">
-      <? if (promotions && promotions.length > 0) { ?>
-      <h3 class="promo-title">EXCLUSIVE PROMO FOR YOU</h3>
-    
-      <? promotions.forEach(function(promo) { ?>
-      <div class="promotion-banner" style="margin-bottom: 15px;">
-        <a href="<?= promo.link ?>" target="_blank"><img src="<?= promo.img ?>" alt="<?= promo.alt ?>"></a>
-      </div>
-      <? }); ?>
-      <? } ?>
-    </div>
-    <div class="social-links">
-      <p>NEO X FOOTBALL CLUB</p>
-      <a href="https://www.instagram.com/neox.footballclub/" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c6.6274 0 12 5.3726 12 12s-5.3726 12-12 12S0 18.6274 0 12 5.3726 0 12 0zm3.115 4.5h-6.23c-2.5536 0-4.281 1.6524-4.3805 4.1552L4.5 8.8851v6.1996c0 1.3004.4234 2.4193 1.2702 3.2359.7582.73 1.751 1.1212 2.8818 1.1734l.2633.006h6.1694c1.3004 0 2.389-.4234 3.1754-1.1794.762-.734 1.1817-1.7576 1.2343-2.948l.0056-.2577V8.8851c0-1.2702-.4234-2.3589-1.2097-3.1452-.7338-.762-1.7575-1.1817-2.9234-1.2343l-.252-.0056zM8.9152 5.8911h6.2299c.9072 0 1.6633.2722 2.2076.8166.4713.499.7647 1.1758.8103 1.9607l.0063.2167v6.2298c0 .9375-.3327 1.6936-.877 2.2077-.499.4713-1.176.7392-1.984.7806l-.2237.0057H8.9153c-.9072 0-1.6633-.2722-2.2076-.7863-.499-.499-.7693-1.1759-.8109-2.0073l-.0057-.2306V8.885c0-.9073.2722-1.6633.8166-2.2077.4712-.4713 1.1712-.7392 1.9834-.7806l.2242-.0057h6.2299-6.2299zM12 8.0988c-2.117 0-3.871 1.7238-3.871 3.871A3.8591 3.8591 0 0 0 12 15.8408c2.1472 0 3.871-1.7541 3.871-3.871 0-2.117-1.754-3.871-3.871-3.871zm0 1.3911c1.3609 0 2.4798 1.119 2.4798 2.4799 0 1.3608-1.119 2.4798-2.4798 2.4798-1.3609 0-2.4798-1.119-2.4798-2.4798 0-1.361 1.119-2.4799 2.4798-2.4799zm4.0222-2.3589a.877.877 0 1 0 0 1.754.877.877 0 0 0 0-1.754z"/></svg></a>
-      <a href="https://www.facebook.com/neoxfc" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" ><path d="M12 0c6.627 0 12 5.373 12 12s-5.373 12-12 12S0 18.627 0 12 5.373 0 12 0zm4 7.278V4.5h-2.286c-2.1 0-3.428 1.6-3.428 3.889v1.667H8v2.777h2.286V19.5h2.857v-6.667h2.286L16 10.056h-2.857V8.944c0-1.11.572-1.666 1.714-1.666H16z"/></svg></a>
-      <a href="https://www.tiktok.com/@neoxfootballclub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c6.6274 0 12 5.3726 12 12s-5.3726 12-12 12S0 18.6274 0 12 5.3726 0 12 0Zm3.1623 4h-2.7508v10.9209a2.3324 2.3324 0 0 1-3.0455 2.2209 2.3324 2.3324 0 0 1 1.4129-4.4459V9.8862a5.0812 5.0812 0 0 0-5.7481 5.5912 5.0805 5.0805 0 0 0 3.802 4.3668 5.0818 5.0818 0 0 0 5.423-2.0286c.5899-.8501.9062-1.86.9065-2.8947V9.3345A6.5666 6.5666 0 0 0 19 10.5614V7.83a3.796 3.796 0 0 1-2.0944-.6295 3.8188 3.8188 0 0 1-1.6852-2.5075 3.7856 3.7856 0 0 1-.058-.693Z" /></svg></a>
-      <a href="https://www.youtube.com/@Neoxfc" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c6.627 0 12 5.373 12 12s-5.373 12-12 12S0 18.627 0 12 5.373 0 12 0zm.294 7h-.589l-1.101.013c-1.48.024-3.709.092-4.465.285a1.836 1.836 0 0 0-1.326 1.263c-.181.644-.258 1.69-.29 2.46l-.022.815v.328l.008.426c.022.764.09 2.088.304 2.849.172.614.68 1.098 1.326 1.263.736.188 2.867.257 4.346.283L11.89 17l1.159-.008c1.453-.019 3.993-.082 4.811-.29a1.836 1.836 0 0 0 1.327-1.263c.21-.75.28-2.048.302-2.817l.01-.528-.003-.403c-.012-.67-.066-2.265-.31-3.13a1.836 1.836 0 0 0-1.326-1.263c-.661-.169-2.45-.242-3.878-.274L12.294 7zm-1.828 2.89l3.92 2.11-3.92 2.11V9.89z"/></svg></a>
-    </div>
-  </div>
-  
-  <script>
-    const buttons = document.querySelectorAll(".card-buttons button");
-    const sections = document.querySelectorAll(".card-section");
-    const card = document.querySelector(".card");
-    
-    const handleButtonClick = (e) => {
-      const targetSection = e.target.getAttribute("data-section");
-      const section = document.querySelector(targetSection);
-      targetSection !== "#about"
-        ? card.classList.add("is-active")
-        : card.classList.remove("is-active");
-      card.setAttribute("data-state", targetSection);
-      sections.forEach((s) => s.classList.remove("is-active"));
-      buttons.forEach((b) => b.classList.remove("is-active"));
-      e.target.classList.add("is-active");
-      section.classList.add("is-active");
-    };
-    
-    buttons.forEach((btn) => {
-      btn.addEventListener("click", handleButtonClick);
-    });
-  </script>
-  
+        // Elemen UI
+        const cardEl = document.getElementById('member-card');
+        const memberNameEl = document.getElementById('member-name');
+        const memberIdEl = document.getElementById('member-id');
+        const memberStatusEl = document.getElementById('member-status');
+        const icPassportEl = document.getElementById('ic-passport');
+        const tarikhLahirEl = document.getElementById('tarikh-lahir');
+        const umurEl = document.getElementById('umur');
+        const genderEl = document.getElementById('gender');
+        const addressEl = document.getElementById('address');
+        const telefonEl = document.getElementById('telefon');
+        const emailEl = document.getElementById('email');
+        const promotionsContainer = document.getElementById('promotions-container');
+        const avatarEl = document.getElementById('card-avatar');
+        
+        const defaultAvatarUrl = 'https://placehold.co/140x140/94a3b8/ffffff?text=AVATAR'; // Gambar default
+
+        // Logik Tab (Dikemas kini mengikut permintaan anda)
+        const buttons = document.querySelectorAll(".card-buttons button");
+        const sections = document.querySelectorAll(".card-section");
+        // Menggunakan cardEl yang telah didefinisi di atas
+
+        const handleButtonClick = (e) => {
+            const targetSection = e.target.getAttribute("data-section");
+            const section = document.querySelector(targetSection);
+            
+            // Menggunakan cardEl
+            if (targetSection !== "#about") {
+                cardEl.classList.add("is-active");
+            } else {
+                cardEl.classList.remove("is-active");
+            }
+            
+            cardEl.setAttribute("data-state", targetSection);
+            sections.forEach((s) => s.classList.remove("is-active"));
+            buttons.forEach((b) => b.classList.remove("is-active"));
+            e.target.classList.add("is-active");
+            section.classList.add("is-active");
+        };
+
+        buttons.forEach((btn) => {
+            btn.addEventListener("click", handleButtonClick);
+        });
+
+
+        /**
+         * Mendapatkan ID Ahli dari parameter URL (contoh: ?id=NEOX-00004).
+         */
+        function getMemberIdFromUrl() {
+            try {
+                const urlParams = new URLSearchParams(window.location.search);
+                const id = urlParams.get('id');
+                // Sentiasa memastikan ID dalam huruf besar untuk padanan yang konsisten
+                return id ? id.toUpperCase() : null; 
+            } catch (e) {
+                console.error("Error reading URL parameters:", e);
+                return null;
+            }
+        }
+
+        /**
+         * Mengemaskini UI dengan data ahli yang ditemui.
+         */
+        function updateMemberUI(profile) {
+            // Data Status
+            const statusText = `${profile.status.toUpperCase()} (exp: ${profile.tarikhLuput})`;
+            memberStatusEl.textContent = statusText;
+
+            // Mengemaskini styling status
+            memberStatusEl.style.color = '#fff';
+            memberStatusEl.style.fontWeight = '500';
+            if (profile.status === 'ACTIVE') {
+                memberStatusEl.style.backgroundColor = '#16a34a'; // Hijau
+            } else if (profile.status === 'EXPIRED') {
+                memberStatusEl.style.backgroundColor = '#dc2626'; // Merah
+            } else {
+                memberStatusEl.style.backgroundColor = '#facc15'; // Kuning
+                memberStatusEl.style.color = '#333';
+            }
+            
+            // Data Profil
+            memberNameEl.textContent = profile.nama;
+            memberIdEl.textContent = profile.id;
+            icPassportEl.textContent = profile.icPassport;
+            tarikhLahirEl.textContent = profile.tarikhLahir;
+            umurEl.textContent = profile.umur;
+            genderEl.textContent = profile.gender;
+            addressEl.textContent = profile.alamat; // Alamat
+            telefonEl.textContent = profile.telefon;
+            emailEl.textContent = profile.email;
+            
+            // Avatar (Jika anda menambah kolum avatar URL)
+            if (profile.avatar_url && profile.avatar_url.startsWith('http')) {
+                 avatarEl.src = profile.avatar_url;
+            } else {
+                 avatarEl.src = defaultAvatarUrl;
+            }
+        }
+
+        /**
+         * Menghasilkan HTML untuk senarai promosi.
+         */
+        function renderPromotions(promotions) {
+            promotionsContainer.innerHTML = ''; // Kosongkan placeholder
+            if (promotions && promotions.length > 0) {
+                promotions.forEach(promo => {
+                    const promoDiv = document.createElement('div');
+                    promoDiv.className = 'promotion-banner';
+                    promoDiv.style.marginBottom = '15px';
+                    
+                    const link = document.createElement('a');
+                    link.href = promo.link || '#'; // Guna '#' jika link tiada
+                    link.target = "_blank";
+
+                    const img = document.createElement('img');
+                    img.src = promo.img;
+                    img.alt = promo.alt;
+                    
+                    link.appendChild(img);
+                    promoDiv.appendChild(link);
+                    promotionsContainer.appendChild(promoDiv);
+                });
+            } else {
+                promotionsContainer.innerHTML = '<p class="text-center text-gray-400">Tiada Promosi Eksklusif buat masa ini.</p>';
+            }
+        }
+
+        /**
+         * Set keadaan ralat apabila ahli tidak ditemui atau ralat sambungan.
+         */
+        function setErrorState(message, memberId) {
+            cardEl.classList.remove('loading-state');
+            cardEl.classList.add('error-state');
+            
+            // Kemaskini Header
+            memberNameEl.textContent = message;
+            memberIdEl.textContent = memberId || "TIADA ID";
+            memberStatusEl.textContent = "Status: TIDAK SAH / RALAT";
+            memberStatusEl.style.backgroundColor = '#991b1b';
+            
+            // Sembunyikan bahagian contact/details yang kosong
+            document.getElementById('about').innerHTML = `<p class="p-6 text-red-800 font-medium">${message}</p>`;
+            document.getElementById('contact').innerHTML = `<p class="p-6 text-red-800 font-medium">Sila hubungi Admin Kelab.</p>`;
+        }
+
+
+        /**
+         * Fungsi utama untuk memuatkan data.
+         */
+        async function loadData() {
+            const memberId = getMemberIdFromUrl();
+
+            if (!memberId) {
+                setErrorState("SILA IMBAS KAD NFC YANG SAH", "");
+                renderPromotions([]); // Masih memaparkan bahagian promosi (jika ada)
+                return;
+            }
+
+            try {
+                // 1. Fetch data dari GAS API (menggunakan ID ahli sebagai parameter)
+                const apiUrlWithId = `${GAS_API_URL}?id=${memberId}`;
+                
+                const response = await fetch(apiUrlWithId);
+                
+                if (!response.ok) {
+                    throw new Error(`Ralat HTTP: ${response.status}`);
+                }
+
+                const data = await response.json(); // Data JSON mengandungi { profile: {...}, promotions: [...] }
+                
+                // 2. Render Promosi (Sentiasa lakukan ini, walaupun profil ralat)
+                renderPromotions(data.promotions);
+
+                // 3. Semak dan Render Profil Ahli
+                if (data.profile) {
+                    updateMemberUI(data.profile);
+                    cardEl.classList.remove('loading-state');
+                } else {
+                    // Ahli tidak ditemui dalam Google Sheet
+                    setErrorState(`ID Ahli ${memberId} TIDAK DITEMUI DALAM REKOD.`, memberId);
+                }
+
+            } catch (error) {
+                // Ralat Sambungan atau API
+                console.error("Fatal Error fetching GAS data:", error);
+                setErrorState("RALAT SAMBUNGAN: Gagal Hubungi Pangkalan Data Kelab.", memberId);
+            }
+        }
+
+        // Jalankan fungsi memuatkan data apabila laman web siap
+        window.onload = loadData;
+
+    </script>
+
 </body>
 </html>
